@@ -1,0 +1,528 @@
+<toaster-container></toaster-container>
+
+<div class="row wrapper border-bottom white-bg page-heading" ng-cloak>
+    <div class="col-lg-10">
+        <h2>Edit Form (<b># {{form.encnum}}</b>)</h2>
+        <p>(Status: <b>{{form.status}}</b>)</p>
+        <p>Dr. {{doctor.name}} - User ID: {{doctor.userid}}</p>
+        <!--<div ng-show="!showalert" class="alert alert-warning">
+          <a href="" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Warning!</strong> You may experience a freezing moment when you click the code button (once only!). This is because of the coding system (ICPC-2 PLUS) is loading into your session...
+        </div>-->
+    </div>
+    <div class="col-lg-2">
+      <br>
+      <button class="btn btn-outline btn-default dim" ng-click="goToViewOForm()" type="button">View</button>      
+    </div>
+</div>
+
+
+<form class="form" role="form" id="createOceanForm" novalidate name="createOceanForm">
+  <script type="text/ng-template" id="error-messages">
+    <div ng-message='required'> This Field is required </div>
+    <div ng-message='minlength'> Too short </div>
+    <div ng-message='maxlength'> Too long </div>
+    <div ng-message='min'> Too small</div>
+    <div ng-message='max'> Too large</div>
+  </script>
+<div class="row" ng-cloak>
+    <div class="col-lg-12">
+
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>General
+                </h5>
+                <div ibox-tools></div>
+            </div>
+
+              <div class="ibox-content">
+
+                <div class="row">
+                  <div class="col-sm-4 b-r">
+                    <h3 class="m-t-none m-b">Encounter Information</h3>
+                    <br>
+                    <!--<div class="form-group">
+                      <label>Encounter Number</label>
+                      <input type="number"  placeholder="" ng-model="form.encnum" class="form-control" disabled="true">
+                    </div>-->
+                    
+                    <div class="form-group">
+                        <label for="encdate" class="control-label">Date of encounter</label>
+                        <input type="text" class="form-control" ng-model="form.encdate" disabled="true">
+                    </div>
+                      
+                    <div class="form-group">
+                      <label><b class="asterik">*</b> Consultation start time</label> <i class="fa fa-info-circle" tooltip-placement="right" uib-tooltip="Use the arrows, mouse scroll or type to change the hour. Click meridian button to shift it" aria-hidden="true"></i>
+                      <!--<input type="text" placeholder="" ng-model="form.starttime" class="form-control" disabled="true">-->
+                      <!--<input type="time" placeholder="" ng-model="starttime" class="form-control" required="">-->
+                      <div uib-timepicker ng-model="starttime" hour-step="hstep" minute-step="mstep" show-meridian="true"></div>
+                    </div>
+                
+                  
+
+                  </div>
+                  <div class="col-sm-4 b-r">
+                    <h3 class="m-t-none m-b">Billing information</h3>
+                    <br>
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.medicare.$touched && createOceanForm.medicare.$invalid, 'has-success': createOceanForm.medicare.$touched && createOceanForm.medicare.$valid }">
+                      <div class="radio radio-inline" >
+                        <input type="radio"  ng-model="form.bill" id="radio15" name="bill" value="MBS/DVA" ng-click="disableBill()">
+                        <label for="radio15" class="control-label"><abbr title="Medicare Benefits Schedule">MBS</abbr>/<abbr title="Department Veterans Affairs">DVA</abbr> paid</label>
+                        <tags-input class="bootstrap" ng-model="form.medicare" id="mbs" name="medicare" placeholder="item number and press Enter" min-length=1 ng-disabled="disablembs"></tags-input>
+                        <!--<pre>{{disablembs}}</pre>-->
+                        <div ng-messages="createOceanForm.medicare.$dirty && createOceanForm.medicare.$error">
+                            <div ng-messages-include="error-messages"> </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                      
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.otherpaid.$touched && createOceanForm.otherpaid.$invalid, 'has-success': createOceanForm.otherpaid.$touched && createOceanForm.otherpaid.$valid }">
+                        <div class="radio radio-inline">
+                          <input type="radio"  ng-model="form.bill" id="radio16" name="bill" value="Other Paid" ng-click="disableBill()">
+                          <label class="control-label" for="radio16" id="otherpaid" > Other Paid</label>
+                        </div>
+                    </div>
+                   
+                      <div class="form-group" ng-class="{'has-error': createOceanForm.nocharge.$touched && createOceanForm.nocharge.$invalid, 'has-success': createOceanForm.nocharge.$touched && createOceanForm.nocharge.$valid }">
+                        <div class="radio radio-inline">
+                          <input type="radio"  ng-model="form.bill" id="radio17" name="bill" value="No Charge" ng-click="disableBill()">
+                          <label class="control-label" for="radio17" id="nocharge"> No Charge</label>
+                        </div>
+                      </div>
+                    <!--<pre>{{bill}}</pre>-->
+                    <hr>
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.consultation.$touched && createOceanForm.consultation.$invalid, 'has-success': createOceanForm.consultation.$touched && createOceanForm.consultation.$valid }">
+                      <label for="consultation" class="control-label m-r">Patient seen by GP? </label>
+                      
+                      <div class="radio radio-inline">
+                          <input type="radio"  ng-model="form.patient.consultation" id="radio1" name="consultation" value="Yes">
+                          <label for="radio1" class="control-label">Yes</label>
+                      </div>
+                      <div class="radio radio-inline">
+                          <input type="radio" ng-model="form.patient.consultation" id="radio2" name="consultation" value="No">
+                          <label for="radio2" class="control-label">No</label>
+                      </div>
+                      <div ng-messages="createOceanForm.consultation.$dirty && createOceanForm.consultation.$error">
+                          <div ng-messages-include="error-messages"> </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <h3 class="m-t-none m-b">Patient characteristic</h3>
+                    <br>
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.newpatient.$pristine && createOceanForm.newpatient.$invalid, 'has-success': createOceanForm.newpatient.$touched && createOceanForm.newpatient.$valid }">
+                      <label>Yes <b style="visibility: hidden;">.</b>/<b style="visibility: hidden;">.</b> No</label><br>
+                      <!--'New Patient','Health Care/Benefits Card','Veterans Affairs Card','NESB', 'Aboriginal','Torres Strait Islander'-->
+                      <div class="radio radio-inline">
+                         <input type="radio" ng-model="form.patient.conditions.newpatient" id="checkbox1" name="newpatient" value="Yes"><label for="checkbox1"><b style="visibility: hidden;">.</b></label>
+                       </div>
+                       <div class="radio radio-inline">
+                         <input type="radio" ng-model="form.patient.conditions.newpatient" id="checkbox2" name="newpatient" value="No"><label for="checkbox2" class="control-label">New Patient</label>
+                      </div>
+                      <button class="btn btn-sm btn-outline btn-link pull-right" ng-click="resetNewPatient()">clear</button>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.healthcare.$pristine  && createOceanForm.healthcare.$invalid, 'has-success': createOceanForm.healthcare.$touched && createOceanForm.healthcare.$valid }">
+                      <div class="radio radio-inline">
+                         <input type="radio"  ng-model="form.patient.conditions.healthcare" id="checkbox3" name="healthcare" value="Yes"><label for="checkbox3"><b style="visibility: hidden;">.</b></label>
+                       </div>
+                       <div class="radio radio-inline">
+                         <input type="radio" ng-model="form.patient.conditions.healthcare" id="checkbox4" name="healthcare" value="No"><label for="checkbox4" class="control-label">Health Care/Benefits Card</label>
+                      </div>
+                      <button class="btn btn-sm btn-outline btn-link pull-right" ng-click="resetHealthcare()">clear</button>
+                    </div>
+                    <!--<button class="btn btn-sm btn-default pull-right m-t-n-xs" ng-click="resetConditions()">
+                        <strong>Reset Conditions</strong></button>
+                    <br>-->
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.veterans.$pristine  && createOceanForm.veterans.$invalid, 'has-success': createOceanForm.veterans.$touched && createOceanForm.veterans.$valid }">
+                      <div class="radio radio-inline">
+                         <input type="radio"  ng-model="form.patient.conditions.veterans" id="checkbox5" name="veterans" value="Yes"><label for="checkbox5"><b style="visibility: hidden;">.</b></label>
+                       </div>
+                       <div class="radio radio-inline">
+                         <input type="radio" ng-model="form.patient.conditions.veterans" id="checkbox6" name="veterans" value="No"><label for="checkbox6" class="control-label">Veterans Affairs Card</label>
+                      </div>
+                      <button class="btn btn-sm btn-outline btn-link pull-right" ng-click="resetVetarans()">clear</button>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.nesb.$pristine && createOceanForm.nesb.$invalid, 'has-success': createOceanForm.nesb.$touched && createOceanForm.nesb.$valid }">
+                      <div class="radio radio-inline">
+                         <input type="radio"  ng-model="form.patient.conditions.nesb" id="checkbox7" name="nesb" value="Yes"><label for="checkbox7"><b style="visibility: hidden;">.</b></label>
+                       </div>
+                       <div class="radio radio-inline">
+                         <input type="radio" ng-model="form.patient.conditions.nesb" id="checkbox8" name="nesb" value="No"><label for="checkbox8" class="control-label">Non-English Speaking Background</label>
+                      </div>
+                      <button class="btn btn-sm btn-outline btn-link pull-right" ng-click="resetNesb()">clear</button>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.aboriginal.$pristine && createOceanForm.aboriginal.$invalid, 'has-success': createOceanForm.aboriginal.$touched && createOceanForm.aboriginal.$valid }">
+                      <div class="radio radio-inline">
+                         <input type="radio"  ng-model="form.patient.conditions.aboriginal" id="checkbox9" name="aboriginal" value="Yes"><label for="checkbox9"><b style="visibility: hidden;">.</b></label>
+                       </div>
+                       <div class="radio radio-inline">
+                         <input type="radio" ng-model="form.patient.conditions.aboriginal" id="checkbox10" name="aboriginal" value="No"><label for="checkbox10" class="control-label">Aboriginal</label>
+                      </div>
+                      <button class="btn btn-sm btn-outline btn-link pull-right" ng-click="resetAboriginal()">clear</button>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.torres.$pristine && createOceanForm.torres.$invalid, 'has-success': createOceanForm.torres.$touched && createOceanForm.torres.$valid }">
+                      <div class="radio radio-inline">
+                         <input type="radio"  ng-model="form.patient.conditions.torres" id="checkbox11" name="torres" value="Yes"><label for="checkbox11"><b style="visibility: hidden;">.</b></label>
+                       </div>
+                       <div class="radio radio-inline">
+                         <input type="radio" ng-model="form.patient.conditions.torres" id="checkbox12" name="torres" value="No"><label for="checkbox12" class="control-label">Torres Strait Islander</label>
+                      </div>
+                      <button class="btn btn-sm btn-outline btn-link pull-right" ng-click="resetTorres()">clear</button>  
+                  </div>
+
+                  </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-cloak>
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Patient
+                </h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+              <div class="row">
+
+                  <div class="col-sm-6 b-r">
+                    <h3 class="m-t-none m-b">Patient details</h3>
+                    <br>
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.gender.$pristine && createOceanForm.gender.$invalid, 'has-success': createOceanForm.gender.$touched && createOceanForm.gender.$valid }">
+                      <label for="gender" class="control-label m-r"><b class="asterik">*</b> Sex</label>
+                      <div class="radio radio-inline">
+                          <input type="radio"  ng-model="form.patient.gender" id="radio3" name="gender" value="M" ng-required="!form.patient.gender">
+                          <label for="radio3" class="control-label" >M </label>
+                      </div>
+                      <div class="radio radio-inline">
+                          <input type="radio" ng-model="form.patient.gender" id="radio4" name="gender" value="F" ng-required="!form.patient.gender">
+                          <label for="radio4" class="control-label" > F </label>
+                      </div>
+                      <div ng-messages="createOceanForm.gender.$error" ng-if="createOceanForm.gender.$touched">
+                          <div ng-messages-include="error-messages"> </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': createOceanForm.post.$touched && createOceanForm.post.$invalid, 'has-success': createOceanForm.post.$touched && createOceanForm.post.$valid }">
+                          <label for="post" class="control-label"><b class="asterik">*</b> Postal Code</label>
+                          <input type="text" placeholder="" ng-model="form.patient.post" name="post" ngMinlength="4" ngMaxlength="4" data-mask="9999" autocomplete="off" class="form-control" required="">
+                          <div ng-messages="createOceanForm.post.$dirty && createOceanForm.post.$error">
+                              <div ng-messages-include="error-messages"> </div>
+                          </div>
+                          <span class="help-block">eg. 2011</span>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': createOceanForm.dob.$touched && createOceanForm.dob.$invalid || createOceanForm.dob.$error.validationError, 'has-success': createOceanForm.dob.$touched && createOceanForm.dob.$valid }">
+                          <label for="dob" class="control-label"><b class="asterik">*</b> Date of Birth</label>
+                          <input type="text" placeholder="" ng-model="form.patient.dob" name="dob" data-mask="99/99/9999" class="form-control" autocomplete="off" required="">
+                          <div ng-messages="createOceanForm.dob.$dirty && createOceanForm.dob.$error">
+                              <div ng-messages-include="error-messages"> </div>
+                          </div>
+                          <span class="help-block">dd/mm/yyyy</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': createOceanForm.height.$touched && createOceanForm.height.$invalid, 'has-success': createOceanForm.height.$touched && createOceanForm.height.$valid }">
+                          <label for="height" class="control-label">Height </label><br>
+                          <div class="col-md-11">
+                            <input type="number" placeholder="" ng-model="form.patient.height" name="height" min="20" max="300" autocomplete="off" class="form-control m-l-n">
+                          </div>
+                          <b class="m-l-n-md">cm</b>
+                          <div ng-messages="createOceanForm.height.$dirty && createOceanForm.height.$error">
+                              <div ng-messages-include="error-messages"> </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': createOceanForm.weight.$touched && createOceanForm.weight.$invalid, 'has-success': createOceanForm.weight.$touched && createOceanForm.weight.$valid }">
+                          <label for="weight" class="control-label">Weight </label><br>
+                          <div class="col-md-11">
+                            <input type="number" placeholder="" ng-model="form.patient.weight" name="weight" min="0" max="500" autocomplete="off" class="form-control m-l-n">
+                          </div>
+                          <b class="m-l-n-md">kg</b>
+                          <div ng-messages="createOceanForm.weight.$dirty && createOceanForm.weight.$error">
+                              <div ng-messages-include="error-messages"> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                  </div>
+                  
+                  <div class="col-sm-6">
+                    <h3 class="m-t-none m-b">Patient Reasons for Encounter <i class="fa fa-info-circle" tooltip-placement="bottom" uib-tooltip="Please, enter a keyword and select a term from ICPC2-PLUS. Otherwise, the RFE will not be saved with its code" aria-hidden="true"></i></h3>
+                    <br>
+                    <div ng-repeat="reas in form.reason">
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.reason.$touched && createOceanForm.reason.$invalid, 'has-success': createOceanForm.reason.$touched && createOceanForm.reason.$valid }">
+                      
+                        <div class="col-md-2 m-t-xs" ng-if="reas.rnum == 1">
+                          <!--<i class="fa fa-times-circle m-l-n m-t-xs" aria-hidden="true"  style="visibility: hidden;"></i>-->
+                          <b class="asterik">*</b> 
+                          <label for="reason" class="control-label m-l-xs"> {{reas.rnum}}.</label>
+                          
+                        </div>  
+                        <div class="col-md-2" ng-if="reas.rnum > 1">
+                          <i class="fa fa-times-circle m-l-n m-t-xs" ng-click="deleteReason(reas)" aria-hidden="true"></i>
+                          <label for="reason" class="control-label m-l-sm"> {{reas.rnum}}.</label>
+                          
+                        </div>  
+
+                        <div class="col-md-10 input-group" ng-if="reas.rnum == 1">
+                          <input ng-model="reas.rname" type="text" name="reason" class="form-control" ng-keypress="goOpenModal2($event,reas,'reason')" autocomplete="off" required="">
+                          <span class="input-group-btn"> <button type="button" class="btn bt-sm btn-primary"
+                            ng-click="$event.stopPropagation();editOFCtr.openMyModal2(reas.rname,reas.rnum,'reason')">
+                            search</button> </span>
+                          <!--<span class="input-group-btn" > <button type="button" class="btn bt-sm btn-default"
+                            ng-click="deleteReason(reas)" ng-if="reas.rnum > 1">
+                            <i class="fa fa-minus-circle" style="color: red;" aria-hidden="true"></i></button> </span>-->
+                            
+                        </div>
+
+                        <div class="col-md-10 input-group" ng-if="reas.rnum > 1">
+                          <input ng-model="reas.rname" type="text" name="reason" autocomplete="off" class="form-control" ng-keypress="goOpenModal2($event,reas,'reason')" >
+                          <span class="input-group-btn"> <button type="button" class="btn bt-sm btn-primary"
+                            ng-click="$event.stopPropagation();editOFCtr.openMyModal2(reas.rname,reas.rnum,'reason')">
+                            search</i></button> </span>
+                          <!--<span class="input-group-btn" > <button type="button" class="btn bt-sm btn-default"
+                            ng-click="deleteReason(reas)" ng-if="reas.rnum > 1">
+                            <i class="fa fa-minus-circle" style="color: red;" aria-hidden="true"></i></button> </span>-->
+                            
+                        </div>
+                        <br>
+                      </div>
+                      <div ng-messages="createOceanForm.reason.$dirty && createOceanForm.reason.$error">
+                          <div ng-message='required'>Delete the blank reason input</div>
+                          <div ng-messages-include="error-messages"> </div>
+                      </div>
+                    </div>
+                    <div >
+
+                      <button type="button" class="btn btn-sm btn-default" ng-click="addNewReason()">
+                          Add more</button>
+                    </div>
+                  </div>
+
+              </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" ng-cloak>
+    <div class="col-lg-12">
+       <!-- <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Diagnosis/Problems Management of Encounter
+                </h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+
+                <uib-accordion close-others="true">
+                  <uib-accordion-group is-open="group.dstatus.open" ng-repeat="group in form.diagnosis">
+
+                      <uib-accordion-heading>
+                          Diagnosis/Problems #{{group.dnum}}
+                          <i class="pull-right" ng-class="{'fa fa-chevron-down':group.dstatus.open, 'fa fa-chevron-right': !group.dstatus.open}"></i>
+                          <i ng-click="$event.preventDefault();deleteDiagnosis(group)" class="fa fa-minus-circle fa-lg pull-right m-r" style="color: red;" aria-hidden="true" ng-if="group.dnum > 1"></i>
+
+                      </uib-accordion-heading>
+
+                      <div diagnosis-section-edit></div>
+
+                  </uib-accordion-group>
+                </uib-accordion>
+
+                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" ng-click="addMoreDiag()"><strong>Add More</strong></button><br>
+
+
+            </div>
+        </div>-->
+
+
+              <div class="tabs-container">
+
+                  <uib-tabset>
+                      <uib-tab ng-repeat="group in form.diagnosis" ng-if="group.dnum == 1">
+                          <uib-tab-heading>
+                            Diagnosis/Problems #{{group.dnum}}
+                          </uib-tab-heading>
+                          <div class="panel-body">
+                              <div diagnosis-section-edit></div>
+                          </div>
+                      </uib-tab>
+
+                      <uib-tab ng-repeat="group in form.diagnosis" ng-if="group.dnum > 1">
+                          <uib-tab-heading>
+                            Diagnosis/Problems #{{group.dnum}} <i class="fa fa-times-circle m-l-xs" ng-click="$event.preventDefault();deleteDiagnosis(group)" aria-hidden="true"></i>
+                          </uib-tab-heading>
+                          <div class="panel-body">
+                              <div diagnosis-section-edit></div>
+                          </div>
+                      </uib-tab>
+                      
+                      <i class="fa fa-plus-circle m-t-xs m-l-sm"  ng-click="addMoreDiag()" style="cursor:pointer"></i>
+                             <!--<button class="btn btn-sm btn-primary" ng-click="addMoreDiag()"><strong>Add More</strong></button>-->
+                         
+                      
+                  </uib-tabset>
+
+              </div>
+    </div>
+</div>
+</form>
+<br>
+<div class="row" ng-cloak>
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+              <div class="row">
+                <div class="col-sm-4 b-r">
+                    <h3 class="m-t-none m-b">To the patient if 18+:</h3>
+                    <br>
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.smoking.$touched && createOceanForm.smoking.$invalid, 'has-success': createOceanForm.smoking.$touched && createOceanForm.smoking.$valid }">
+                      <label for="smoking" class="control-label">Which best describes your smoking status?</label>
+                      <select id="smoking" class="form-control m-b" ng-model="form.patient.smoking" name="smoking">
+                              <option value="" selected>Select</option>
+                                <option>Smoke daily</option>
+                                <option>Smoke occasionally</option>
+                                <option>Previous smoker</option>
+                                <option>Never smoked</option>
+                            </select>
+                      <div ng-messages="createOceanForm.smoking.$dirty && createOceanForm.smoking.$error">
+                          <div ng-messages-include="error-messages"> </div>
+                      </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.drinking.$touched && createOceanForm.drinking.$invalid, 'has-success': createOceanForm.drinking.$touched && createOceanForm.drinking.$valid }">
+                      <label for="drinking" class="control-label">How often do you have a drink containing alcohol?</label>
+                      <select id="drinking" class="form-control m-b" ng-model="form.patient.drinking" name="drinking">
+                              <option value="" selected>Select</option>
+                                <option>Never</option>
+                                <option>Monthly or less</option>
+                                <option>Once a week/fortnight</option>
+                                <option>2-3 times a week</option>
+                                <option>4+ times a week</option>
+                            </select>
+                      <div ng-messages="createOceanForm.drinking.$dirty && createOceanForm.drinking.$error">
+                          <div ng-messages-include="error-messages"> </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 b-r">
+                  <h3 class="m-t-none m-b">To the patient if 18+:</h3>
+                    <br>
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.drinks.$touched && createOceanForm.drinks.$invalid, 'has-success': createOceanForm.drinks.$touched && createOceanForm.drinks.$valid }">
+                      <label for="drinks" class="control-label">How many 'standard' drinks do you have on a typical day when you are drinking?</label>
+                      <input id="drinks" type="number" ng-model="form.patient.drinks" name="drinks" min="0" placeholder=""  autocomplete="off" class="form-control">
+                      <div ng-messages="createOceanForm.drinks.$dirty && createOceanForm.drinks.$error">
+                          <div ng-messages-include="error-messages"> </div>
+                      </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.moredrink.$touched && createOceanForm.moredrink.$invalid, 'has-success': createOceanForm.moredrink.$touched && createOceanForm.moredrink.$valid }">
+                      <label for="moredrink" class="control-label">How often do you have 6 or more standard drinks on one occasion?</label>
+                      <select id="moredrink" class="form-control m-b" ng-model="form.patient.moredrink" name="moredrink">
+                          <option value="" selected>Select</option>
+                                <option>Never</option>
+                                <option>Less than monthly</option>
+                                <option>Monthly</option>
+                                <option>Weekly</option>
+                                <option>Daily or almost daily</option>
+                            </select>
+                      <div ng-messages="createOceanForm.moredrink.$dirty && createOceanForm.moredrink.$error">
+                          <div ng-messages-include="error-messages"> </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="col-sm-2 b-r">
+                    <br><br><br>
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.timesgp.$touched && createOceanForm.timesgp.$invalid, 'has-success': createOceanForm.timesgp.$touched && createOceanForm.timesgp.$valid }">
+                      <label for="timesgp" class="control-label">Approx. how many times has this patient seen <u>any</u> GP?
+                      <small>In the past 12 months (including today)</small> </label>
+                      <input type="number" placeholder="" ng-model="form.patient.timesgp" name="timesgp" min="0" autocomplete="off" class="form-control">
+                      <div ng-messages="createOceanForm.timesgp.$dirty && createOceanForm.timesgp.$error">
+                          <div ng-messages-include="error-messages"> </div>
+                      </div>
+                    </div>
+                    <br><br><br>
+                  </div>
+                <div class="col-sm-2">
+                    <br><br><br>  
+                    <label><b class="asterik">*</b> Consultation end time</label> <i class="fa fa-info-circle" tooltip-placement="right" uib-tooltip="Use the arrows, mouse scroll or type to change the hour. Click meridian button to shift it" aria-hidden="true"></i>            
+                    <div uib-timepicker ng-model="finishtime" id="timepicker" hour-step="hstep" minute-step="mstep" show-meridian="true"></div>   
+                    <br><br><br>             
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-cloak>
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="col-md-4">
+                    <button class="btn btn-default btn-lg" ng-click="resetForm()"> <strong>Reset</strong></button>
+                  </div>
+                  <div class="col-md-2">                    
+                    <!--<label><b class="asterik">*</b> Consultation end time:</label>              
+                    <div uib-timepicker ng-model="finishtime" id="timepicker" hour-step="hstep" minute-step="mstep" show-meridian="true"></div>                -->
+                  </div>
+                  <div class="col-md-6">
+                    <button ng-click="confirmForm('lg')" class="btn btn-success btn-lg pull-right m-l"><strong>Confirm &amp; Submit</strong></button>
+                    <button ng-disabled="form.status == 'Submitted'" class="btn btn-warning btn-lg pull-right" ng-click="saveAndExit()"><strong>Save Draft &amp; Exit</strong></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+
+.fa-plus-circle{
+  cursor: pointer;
+  color: rgba(103, 106, 108, 0.38);
+  font-size:25px;
+}
+.fa-plus-circle:hover  {
+    color: rgba(103, 106, 108, 1);   
+ }
+
+.fa-times-circle{
+	/*position: fixed;*/
+	cursor: pointer;
+	/*display: none;*/
+    /*background:  transparent;*/
+    color: rgba(103, 106, 108, 0.38);
+    
+    font-size: 20px;
+}
+
+.fa-times-circle:hover  {
+    color: rgba(103, 106, 108, 1);
+   
+ }
+</style>

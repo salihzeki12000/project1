@@ -1,0 +1,357 @@
+
+<div class="row wrapper border-bottom white-bg page-heading" ng-cloak>
+    <div class="col-lg-10">
+        <h2>View Form </h2>
+        <p>(Status: <b>{{form.status}}</b>)</p>
+        <p>Dr. {{doctor.name}} - User ID: {{doctor.userid}}</p>
+    </div>
+    <div class="col-lg-2">
+      <br>
+      <button class="btn btn-outline btn-warning dim" ng-click="goToEditOForm()" type="button">Edit</button>      
+    </div>
+</div>
+
+<div class="row" ng-cloak>
+    <div class="col-lg-12">
+
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>General
+                </h5>
+                <div ibox-tools></div>
+            </div>
+            <form class="form" role="form" id="createOceanForm" novalidate name="createOceanForm">
+              <div class="ibox-content">
+
+                <div class="row">
+                  <div class="col-sm-4 b-r">
+                    <h3 class="m-t-none m-b">Encounter Information</h3>
+                    <br>
+                    <div class="form-group">
+                      <label>Encounter Number</label>
+                      <input type="number" placeholder="" ng-model="form.encnum" class="form-control" disabled="true" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="encdate" class="control-label">Date of encounter</label>
+                        <input type="text" class="form-control" ng-model="form.encdate" disabled="true">
+                    </div>
+
+                    
+                      <div class="form-group">
+                        <label >Consultation start time</label>
+                        <input type="text" placeholder="" ng-model="form.starttime" class="form-control" disabled="true">
+                      </div>
+                    
+                  </div>
+                  <div class="col-sm-4 b-r">
+                    <h3 class="m-t-none m-b">Billing information</h3>
+                    <br>
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.medicare.$touched && createOceanForm.medicare.$invalid, 'has-success': createOceanForm.medicare.$touched && createOceanForm.medicare.$valid }">
+                      <div class="radio radio-inline" >
+                        <input type="radio"  ng-model="form.bill" id="radio15" name="bill" value="MBS/DVA" disabled>
+                        <label for="radio15" class="control-label"><abbr title="Medicare Benefits Schedule">MBS</abbr>/<abbr title="Department Veterans Affairs">DVA</abbr> paid</label>
+                        <tags-input class="bootstrap" ng-model="form.medicare" id="mbs" name="medicare" placeholder="item number and press Enter" ng-disabled="true"></tags-input>
+                        <!--<pre>{{disablembs}}</pre>-->
+                        <div ng-messages="createOceanForm.medicare.$dirty && createOceanForm.medicare.$error">
+                            <div ng-messages-include="error-messages"> </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                      
+                    <div class="form-group" ng-class="{'has-error': createOceanForm.otherpaid.$touched && createOceanForm.otherpaid.$invalid, 'has-success': createOceanForm.otherpaid.$touched && createOceanForm.otherpaid.$valid }">
+                        <div class="radio radio-inline">
+                          <input type="radio"  ng-model="form.bill" id="radio16" name="bill" value="Other Paid" disabled>
+                          <label class="control-label" for="radio16" id="otherpaid" > Other Paid</label>
+                        </div>
+                    </div>
+                   
+                      <div class="form-group" ng-class="{'has-error': createOceanForm.nocharge.$touched && createOceanForm.nocharge.$invalid, 'has-success': createOceanForm.nocharge.$touched && createOceanForm.nocharge.$valid }">
+                        <div class="radio radio-inline">
+                          <input type="radio"  ng-model="form.bill" id="radio17" name="bill" value="No Charge" disabled>
+                          <label class="control-label" for="radio17" id="nocharge"> No Charge</label>
+                        </div>
+                      </div>         
+                    <!--<pre>{{bill}}</pre>-->
+                    <hr>
+                    <div class="form-group">
+                      <label for="consultation" class="control-label m-r">Patient seen by GP? </label>                      
+                      <div class="radio radio-inline">
+                          <input type="radio"  ng-model="form.patient.consultation" id="radio1" value="Yes" disabled>
+                          <label for="radio1" class="control-label">Yes</label>
+                      </div>
+                      <div class="radio radio-inline">
+                          <input type="radio" ng-model="form.patient.consultation" id="radio2" value="No" disabled>
+                          <label for="radio2" class="control-label">No</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <h3 class="m-t-none m-b">Patient characteristic</h3>
+                    <br>
+                    <div class="form-group">
+                      <label>Yes <b style="visibility: hidden;">.</b>/<b style="visibility: hidden;">.</b> No</label><br>
+                      <!--'New Patient','Health Care/Benefits Card','Veterans Affairs Card','NESB', 'Aboriginal','Torres Strait Islander'-->
+                      <div class="radio radio-inline">
+                         <input type="radio" ng-model="form.patient.conditions.newpatient" id="checkbox1" value="Yes" disabled=""><label for="checkbox1"><b style="visibility: hidden;">.</b></label>
+                      </div>
+                      <div class="radio radio-inline">
+                         <input type="radio" ng-model="form.patient.conditions.newpatient" id="checkbox2" value="No" disabled=""><label for="checkbox2" class="control-label">New Patient</label>
+                      </div>
+                      <br>
+                    </div>
+                    <div class="form-group">
+                      <div class="radio radio-inline">
+                         <input type="radio"  ng-model="form.patient.conditions.healthcare" id="checkbox3" value="Yes"  disabled=""><label for="checkbox3"><b style="visibility: hidden;">.</b></label>
+                      </div>
+                      <div class="radio radio-inline">
+                         <input type="radio" ng-model="form.patient.conditions.healthcare" id="checkbox4" value="No"  disabled=""><label for="checkbox4" class="control-label">Health Care/Benefits Card</label>
+                      </div>
+                      <br>
+                    </div>
+                    <!--<button class="btn btn-sm btn-default pull-right m-t-n-xs" ng-click="resetConditions()">
+                        <strong>Reset Conditions</strong></button>
+                    <br>-->
+                    <div class="form-group">
+                      <div class="radio radio-inline">
+                         <input type="radio"  ng-model="form.patient.conditions.veterans" id="checkbox5" value="Yes" disabled=""><label for="checkbox5"><b style="visibility: hidden;">.</b></label>
+                      </div>
+                      <div class="radio radio-inline">
+                         <input type="radio" ng-model="form.patient.conditions.veterans" id="checkbox6" value="No"  disabled=""><label for="checkbox6" class="control-label">Veterans Affairs Card</label>
+                      </div>
+                      <br>
+                    </div>
+                    <div class="form-group">
+                      <div class="radio radio-inline">
+                         <input type="radio"  ng-model="form.patient.conditions.nesb" id="checkbox7" value="Yes" disabled=""><label for="checkbox7"><b style="visibility: hidden;">.</b></label>
+                      </div>
+                      <div class="radio radio-inline">
+                         <input type="radio" ng-model="form.patient.conditions.nesb" id="checkbox8" value="No"  disabled=""><label for="checkbox8" class="control-label">Non-English Speaking Background</label>
+                      </div>
+                      <br>
+                    </div>
+                    <div class="form-group">
+                      <div class="radio radio-inline">
+                         <input type="radio"  ng-model="form.patient.conditions.aboriginal" id="checkbox9" value="Yes" disabled=""><label for="checkbox9"><b style="visibility: hidden;">.</b></label>
+                      </div>
+                      <div class="radio radio-inline">
+                         <input type="radio" ng-model="form.patient.conditions.aboriginal" id="checkbox10" value="No"  disabled=""><label for="checkbox10" class="control-label">Aboriginal</label>
+                      </div>
+                      <br>
+                    </div>
+                    <div class="form-group" >
+                      <div class="radio radio-inline">
+                         <input type="radio"  ng-model="form.patient.conditions.torres" id="checkbox11" value="Yes"  disabled=""><label for="checkbox11"><b style="visibility: hidden;">.</b></label>
+                      </div>
+                      <div class="radio radio-inline">
+                         <input type="radio" ng-model="form.patient.conditions.torres" id="checkbox12" value="No" disabled=""><label for="checkbox12" class="control-label">Torres Strait Islander</label>
+                      </div>
+
+                  </div>
+
+                  </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-cloak>
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Patient
+                </h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">
+              <div class="row">
+
+                  <div class="col-sm-6 b-r">
+                    <h3 class="m-t-none m-b">Patient details</h3>
+                    <br>
+                    <div class="form-group">
+                      <label for="gender" class="control-label m-r">Sex</label>
+                      <div class="radio radio-inline">
+                          <input type="radio" ng-model="form.patient.gender" value="M" disabled="">
+                          <label for="gender" class="control-label" >M </label>
+                      </div>
+                      <div class="radio radio-inline">
+                          <input type="radio" ng-model="form.patient.gender" value="F" disabled="">
+                          <label for="gender" class="control-label" > F </label>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="post" class="control-label">Postal Code</label>
+                          <input type="text" placeholder="" ng-model="form.patient.post" data-mask="9999" class="form-control" disabled="">
+
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="dob" class="control-label">Date of Birth</label>
+                          <input type="text" placeholder="" ng-model="form.patient.dob" data-mask="99/99/9999" class="form-control" disabled="">
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="height" class="control-label">Height</label><br>
+                          <div class="col-md-11">
+                            <input type="number" placeholder="" name="height" ng-model="form.patient.height" class="form-control m-l-n" disabled="">
+                          </div>
+                          <b class="m-l-n-md">cm</b>
+                        </div>
+
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="weight" class="control-label">Weight</label><br>
+                          <div class="col-md-11">
+                          <input type="number" placeholder="" name="weight" ng-model="form.patient.weight" class="form-control m-l-n" disabled="">
+                          </div>
+                          <b class="m-l-n-md">kg</b>
+
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+
+                  </div>
+                  
+                  <div class="col-sm-6">
+                    <h3 class="m-t-none m-b">Patient Reasons for Encounter</h3>
+                    <br><br>
+                    <div class="form-group">
+                      <div ng-repeat="reas in form.reason">
+                        <div class="col-md-2">
+                          <label><i class="fa fa-certificate" aria-hidden="true"></i> {{reas.rnum}}</label>
+                        </div>
+                        <div class="col-md-10" >
+                          <input ng-model="reas.rname" type="text" class="form-control" disabled="">
+                        </div>
+                        <br>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+              </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+<div class="row" ng-cloak>
+    <div class="col-lg-12">
+        <!--<div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Diagnosis/Problems
+                </h5>
+                <div ibox-tools></div>
+            </div>
+            <div class="ibox-content">-->
+
+              <!--<uib-accordion close-others="true">
+                <uib-accordion-group is-open="group.status.open" ng-repeat="group in form.diagnosis">
+
+                    <uib-accordion-heading>
+                        Diagnosis/Problems #{{group.dnum}}
+                        <i class="pull-right" ng-class="{'fa fa-chevron-down':group.status.open, 'fa fa-chevron-right': !group.status.open}"></i>
+
+                    </uib-accordion-heading>
+
+                    <div diagnosis-section-view></div>
+
+                </uib-accordion-group>
+              </uib-accordion>-->
+
+              <div class="tabs-container">
+
+                  <uib-tabset>
+                      <uib-tab ng-repeat="group in form.diagnosis">
+                          <uib-tab-heading>
+                            Diagnosis/Problems #{{group.dnum}}
+                          </uib-tab-heading>
+                          <div class="panel-body">
+                              <div diagnosis-section-view></div>
+                          </div>
+                      </uib-tab>
+                      
+                      <!--<i class="fa fa-plus-circle m-t-sm m-l-sm"  ng-click="addMoreDiag()"></i>-->
+                             <!--<button class="btn btn-sm btn-primary" ng-click="addMoreDiag()"><strong>Add More</strong></button>-->
+                         
+                      
+                  </uib-tabset>
+
+              </div>
+            <!--</div>
+        </div>-->
+    </div>
+</div>
+<br>
+<div class="row" ng-cloak>
+  <div class="col-lg-12">
+  <div class="ibox float-e-margins">
+            <div class="ibox-content">
+              <div class="row">
+  <div class="col-sm-4 b-r">
+      <h3 class="m-t-none m-b">To the patient if 18+:</h3>
+      <br>
+      <div class="form-group">
+        <label for="smoking" class="control-label">Which best describes your smoking status?</label>
+        <input type="text" class="form-control m-b" ng-model="form.patient.smoking" disabled="">
+      </div>
+      <div class="form-group" >
+        <label for="drinking" class="control-label">How often do you have a drink containing alcohol?</label>
+        <input type="text" class="form-control m-b" ng-model="form.patient.drinking" disabled="">
+      </div>
+  </div>
+  <div class="col-sm-4 b-r">
+    <h3 class="m-t-none m-b">To the patient if 18+:</h3>
+      <br>
+      <div class="form-group">
+        <label for="drinks" class="control-label">How many 'standard' drinks do you have on a typical day when you are drinking?</label>
+        <input type="number" ng-model="form.patient.drinks" placeholder="" class="form-control" disabled="">
+      </div>
+      <div class="form-group">
+        <label for="moredrink" class="control-label">How often do you have 6 or more standard drinks on one occasion?</label>
+          <input type="text" class="form-control m-b" ng-model="form.patient.moredrink" disabled="">
+
+      </div>
+    </div>
+    <div class="col-sm-2 b-r">
+      <br><br><br>
+      <div class="form-group">
+        <label for="timesgp" class="control-label">Approx. how many times has this patient seen <u>any</u> GP?
+        <small>In the past 12 months (including today)</small></label>
+        <input type="number" placeholder="" ng-model="form.patient.timesgp" class="form-control" disabled="">
+      </div>
+      <br><br><br>
+    </div>
+    <div class="col-sm-2">
+      <br><br><br>
+      <div class="form-group">
+        <label >Consultation end time</label>
+        <input type="text" placeholder="" ng-model="form.finishtime" class="form-control" disabled="">
+      </div>
+      <br><br><br>
+    </div>
+            </div>
+            </div>
+            </div>
+  </div>
+</div>
+<br>

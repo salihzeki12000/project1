@@ -1,0 +1,21 @@
+<!--<form role="form" id="createOceanForm" novalidate name="createOceanForm">-->
+
+  <i ng-click="$event.preventDefault();deletePathology(group.pathology,pat)" class="fa fa-times-circle fa-lg pull-right" aria-hidden="true"></i>
+  <div class="row" style="height:70px;">
+    <div class="col-md-5">
+      <div class="form-group" ng-class="{'has-error': createOceanForm.pathname.$touched && createOceanForm.pathname.$invalid, 'has-success': createOceanForm.pathname.$touched && createOceanForm.pathname.$valid }">
+        <label for="pathname" class="control-label">Name</label> <i class="fa fa-info-circle" tooltip-placement="right" uib-tooltip="Please, enter a keyword and select a term from ICPC2-PLUS. Otherwise, this will not be saved with its code" aria-hidden="true"></i>
+        <div class="input-group">
+          <input ng-model="pat.pname" name="pathname" type="text" ng-keypress="goOpenModal($event,group.dnum,pat,'pathology')"  autocomplete="off" class="form-control" >
+          <span class="input-group-btn"> <button type="button" class="btn bt-sm btn-primary"
+      ng-click="$event.stopPropagation();editOFCtr.openMyModal(group.dnum,pat.pname,pat.pnum,'pathology')">
+      search</button> </span>
+        </div>
+        <div ng-messages="createOceanForm.pathname.$dirty && createOceanForm.pathname.$error">
+          <div ng-messages-include="error-messages"> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+<!--</form>-->

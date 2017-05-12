@@ -1,0 +1,22 @@
+<!--<form role="form" id="createOceanForm" novalidate name="createOceanForm">-->
+
+  <i ng-click="$event.preventDefault();deleteReferral(group.referral,ref)" class="fa fa-times-circle fa-lg pull-right" aria-hidden="true"></i>
+  <div class="row" style="height:70px;">
+    <div class="col-md-5">
+      <div class="form-group" ng-class="{'has-error': createOceanForm.rename.$touched && createOceanForm.rename.$invalid, 'has-success': createOceanForm.rename.$touched && createOceanForm.rename.$valid }">
+        <label for="rename" class="control-label">New Referrals/Admissions</label> <i class="fa fa-info-circle" tooltip-placement="right" uib-tooltip="Please, enter a keyword and select a term from ICPC2-PLUS. Otherwise, this will not be saved with its code" aria-hidden="true"></i>
+        <div class="input-group">
+          <input name="rename" ng-model="ref.rname" type="text" ng-keypress="goOpenModal($event,group.dnum,ref,'referral')" class="form-control" autocomplete="off" >
+          <span class="input-group-btn"> <button type="button" class="btn bt-sm btn-primary"
+      ng-click="$event.stopPropagation();editOFCtr.openMyModal(group.dnum,ref.rname,ref.rnum,'referral')">
+      search</button> </span>
+        </div>
+        <div ng-messages="createOceanForm.rename.$dirty && createOceanForm.rename.$error">
+          <div ng-messages-include="error-messages"> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+<!--</form>-->

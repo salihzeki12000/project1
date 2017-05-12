@@ -1,0 +1,75 @@
+<form>
+  <div class="row">
+    
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Diagnosis/Problem</label>
+        <input ng-model="group.name" type="text" class="form-control" disabled="">
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="status" class="control-label">Status</label> <br>
+        <div class="radio radio-inline">
+          <input type="radio" id={{new}}{{group.dnum}} ng-model="group.status" value="New" name="status" disabled="">
+          <label for={{new}}{{group.dnum}}> New</label>
+        </div>
+        <div class="radio radio-inline">
+          <input type="radio" id={{old}}{{group.dnum}} ng-model="group.status" value="Old" name="status" disabled="">
+          <label for={{old}}{{group.dnum}}> Old</label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</form>
+<br>
+
+<label class="control-label">Management of Diagnosis/Problem #{{group.dnum}}</label>
+<div class="tabs-container">
+  
+  <uib-tabset class="tabs-left">
+    <uib-tab heading="Drugs">
+      <div class="panel-body">
+       
+          <div drug-section-view ng-repeat="dru in group.drug" ng-if="dru.enabled"></div>
+        
+      </div>
+    </uib-tab>
+
+    <uib-tab heading="Procedure, other treatments, counselling">
+      <div class="panel-body">
+        <div ng-repeat="pro in group.procedure" ng-if="pro.enabled">
+          <div procedure-section-view ></div>
+        </div>
+      </div>
+    </uib-tab>
+
+    <uib-tab heading="New Referrals / Admissions">
+      <div class="panel-body">
+        <div ng-repeat="ref in group.referral" ng-if="ref.enabled">
+          <div referral-section-view ></div>
+        </div>
+      </div>
+    </uib-tab>
+
+    <uib-tab heading="Imaging / Other tests">
+      <div class="panel-body">
+        <div ng-repeat="ima in group.imaging" ng-if="ima.enabled">
+          <div imaging-section-view></div>
+        </div>
+      </div>
+    </uib-tab>
+
+    <uib-tab heading="Pathology">
+      <div class="panel-body">
+        <div ng-repeat="pat in group.pathology" ng-if="pat.enabled">
+          <div pathology-section-view ></div>
+        </div>
+      </div>
+    </uib-tab>
+
+  </uib-tabset>
+
+</div>

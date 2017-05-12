@@ -1,0 +1,165 @@
+<!--<style>
+.btn-circle{
+    height:20px;
+    width:20px;
+}
+.fa-question {
+   top: -10px;
+}
+</style>-->
+
+<form role="form" id="createDrugForm" novalidate name="createDrugForm">
+    
+     <i ng-click="$event.preventDefault();deleteDrug(group.drug,dru)" class="fa fa-times-circle fa-lg pull-right" aria-hidden="true"></i>
+
+    <div class="row" >
+        <div class="col-md-6 b-r">
+            <div class="form-group" ng-class="{'has-error': createDrugForm.drugname.$touched && createDrugForm.drugname.$invalid && drugSaved, 'has-success': createDrugForm.drugname.$touched && createDrugForm.drugname.$valid && drugSaved}">
+                <div class="row">
+                    <div class="col-md-12">
+                       <label for="drugname" class="control-label">Name
+                           <small class="text-muted"> (Select a drug from the dropdown list) </small></label> 
+                        <div class="input-group" id="scrollable-dropdown-menu">
+                            <div class="input-group-addon">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </div><!-- /.input-group-addon -->
+                            <input name="drugname" type="text" ng-model="dru.drname" placeholder="e.g. 'Anastrozole'" autocomplete="off" uib-typeahead="cap as label(cap) for cap in caps | filter:{label:$viewValue} | limitTo:300" class="form-control" typeahead-show-hint="true" typeahead-min-length="3" typeahead-focus-first="true" typeahead-no-results="noresult">
+                            <!--<span class="input-group-btn">
+                                <button class="btn btn-primary" ng-click="$event.preventDefault(); saveDrug(dru.drname,dru,group.dnum,dru.drnum)">
+                                continue</button></span>-->
+                        </div>
+                        <p><u>Coding info:</u> <b class="text-muted">{{dru.codinginfo}}</b></p>
+                    </div>
+                </div>
+            </div>
+       
+            <div class="form-group" ng-class="{'has-error': createDrugForm.dose.$touched && createDrugForm.dose.$invalid, 'has-success': createDrugForm.dose.$touched && createDrugForm.dose.$valid }">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="dose" class="control-label">Dose</label><br>                
+                        <input type="number" class="form-control" id="dose{{group.dnum}}{{dru.drnum}}"  name="dose" min="0" max="9999" ng-model="dru.drdose" placeholder="" autocomplete="off">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="dose" class="control-label">Measure</label><br>  
+                        <select class="form-control m-b" id="measure{{group.dnum}}{{dru.drnum}}" ng-model="dru.dosmeasure">
+                            <option value="" selected>Select</option>
+                            <option>mcg</option>
+                            <option>mg</option>
+                            <option>g</option>
+                            <option>tablet</option>
+                            <option>capsule</option>
+                            <option>mls</option>
+                            <option>litre</option>
+                            <option>i.u.</option>
+                            <option>million i.u.</option>
+                            <option>units</option>
+                            <option>thousand i.u.</option>
+                            <option>other doses</option>
+                            <option>%</option>
+                            <option>injection</option>
+                            <option>implant</option>
+                        </select>
+                        
+                    </div>
+                    <div ng-messages="createDrugForm.dose.$dirty && createDrugForm.dose.$error">
+                        <div ng-messages-include="error-messages"> </div>
+                    </div>
+                </div>
+            </div>
+        
+
+        
+            <div class="form-group" ng-class="{'has-error': createDrugForm.frequency.$touched && createDrugForm.frequency.$invalid, 'has-success': createDrugForm.frequency.$touched && createDrugForm.frequency.$valid }">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="frequency" class="control-label">Frequency</label><br>
+                        <input type="number" class="form-control" id="freqnum{{group.dnum}}{{dru.drnum}}" name="frequency"  min="0" ng-model="dru.drfreqnum" placeholder="" autocomplete="off">
+                        <div ng-messages="createDrugForm.frequency.$dirty && createDrugForm.frequency.$error">
+                            <div ng-messages-include="error-messages"> </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="frequency" class="control-label">Period</label><br>
+                        <!--<input type="text" class="form-control" id="freq{{group.dnum}}{{dru.drnum}}" name="frequency" ngMaxlength="10" ng-model="dru.drfreq" placeholder="">-->
+                         <select class="form-control m-b" id="freq{{group.dnum}}{{dru.drnum}}" name="frequency" ng-model="dru.drfreq">
+                            <option value="" selected>Select</option>
+                             <option>morning</option>
+                            <option>night</option>
+                            <option>daily</option>
+                            <option>weekly</option>
+                            <option>fortnightly</option>
+                            <option>monthly</option>
+                            <option>yearly</option>
+                            <option>stat</option>
+                            <option>alt days</option>
+                            <option>prn</option>
+                        </select>
+                        <div ng-messages="createDrugForm.frequency.$dirty && createDrugForm.frequency.$error">
+                            <div ng-messages-include="error-messages"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+   
+        <div class="col-md-5">
+            
+            <div class="form-group" ng-class="{'has-error': createDrugForm.norep.$touched && createDrugForm.norep.$invalid, 'has-success': createDrugForm.norep.$touched && createDrugForm.norep.$valid }">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="norep" class="control-label">Repeats</label><br>
+                        <input type="number" class="form-control" id="norep{{group.dnum}}{{dru.drnum}}" name="norep" ng-model="dru.drnorep" min="0" max="9999" autocomplete="off" placeholder="">
+                        <div ng-messages="createDrugForm.norep.$dirty && createDrugForm.norep.$error">
+                            <div ng-messages-include="error-messages"> </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        
+            <div class="form-group" ng-class="{'has-error': createDrugForm.status.$touched && createDrugForm.status.$invalid, 'has-success': createDrugForm.status.$touched && createDrugForm.status.$valid }">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="status" class="control-label m-l">Status</label><br>
+                        <div class="radio radio-inline">
+                            <input type="radio" ng-model="dru.drstatus.name" id="new{{group.dnum}}{{dru.drnum}}" name="statusdrug{{group.dnum}}{{dru.drnum}}" value="New">
+                            <label for="new{{group.dnum}}{{dru.drnum}}"> New </label>
+                        </div>
+                        <div class="radio radio-inline">
+                            <input type="radio" ng-model="dru.drstatus.name" id="cont{{group.dnum}}{{dru.drnum}}" name="statusdrug{{group.dnum}}{{dru.drnum}}" value="Continuation">
+                            <label for="cont{{group.dnum}}{{dru.drnum}}"> Continuation </label>
+                        </div>
+                        <div ng-messages="createDrugForm.status.$dirty && createDrugForm.status.$error">
+                            <div ng-messages-include="error-messages"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="" class="control-label m-l">Others</label><br>
+
+                        <div class="radio radio-inline">
+                        <input type="radio" ng-model="dru.others.name" id="pres{{group.dnum}}{{dru.drnum}}" name="others{{group.dnum}}{{dru.drnum}}" value="Prescription">
+                        <label for="pres{{group.dnum}}{{dru.drnum}}"> Prescription </label>
+                        </div>
+                        <div class="radio radio-inline">
+                        <input type="radio" ng-model="dru.others.name" id="otc{{group.dnum}}{{dru.drnum}}" name="others{{group.dnum}}{{dru.drnum}}" value="OTC">
+                        <label for="otc{{group.dnum}}{{dru.drnum}}"> OTC </label>
+                        </div>
+                        <div class="radio radio-inline">
+                        <input type="radio" ng-model="dru.others.name" id="supply{{group.dnum}}{{dru.drnum}}" name="others{{group.dnum}}{{dru.drnum}}" value="GP Supply">
+                        <label for="supply{{group.dnum}}{{dru.drnum}}"> GP Supply </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
+        </div>
+    </div>
+      <hr>
+</form>

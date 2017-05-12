@@ -1,0 +1,95 @@
+<form role="form">
+  <div class="row">
+    <div class="col-md-5 b-r">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Name</label><br>
+            <input ng-model="dru.drname" type="text" class="form-control" disabled="">
+            <p><u>Coding info:</u> <b class="text-muted">{{dru.codinginfo}}</b></p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Dose</label><br>
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="dru.drdose" placeholder="" disabled="">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Measure</label><br>
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="dru.dosmeasure" placeholder="" disabled="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Frequency number</label><br>
+            <input type="text" class="form-control" ng-model="dru.drfreqnum" placeholder="" disabled="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Frequency period</label><br>
+            <input type="text" class="form-control" ng-model="dru.drfreq" placeholder="" disabled="">
+            
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="col-md-5">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Repeats</label><br>
+          <input type="number" class="form-control" ng-model="dru.drnorep" placeholder="" disabled="">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="control-label">Status</label><br>
+          <div class="radio radio-inline">
+            <input type="radio" ng-model="dru.drstatus.name" value="New" disabled="">
+            <label> New </label>
+          </div>
+          <div class="radio radio-inline">
+            <input type="radio" ng-model="dru.drstatus.name" value="Continuation" disabled="">
+            <label> Continuation </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="control-label">Others</label><br>
+          <div class="radio radio-inline">
+              <input type="radio" ng-model="dru.others.name" name="others" value="Prescription" disabled>
+              <label> Prescription </label>
+            </div>
+            <div class="radio radio-inline">
+              <input type="radio" ng-model="dru.others.name" name="others" value="OTC" disabled>
+              <label> OTC </label>
+            </div>
+            <div class="radio radio-inline">
+              <input type="radio" ng-model="dru.others.name" name="others" value="GP Supply" disabled>
+              <label> GP Supply </label>
+            </div>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+  </div>
+  <hr>
+</form>

@@ -1,0 +1,285 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h4 class="modal-title">OCEAN Form ({{encnum}})</h4>
+
+        <p class="font-bold">Date: <b>{{encdate}}</b></p>
+        <p class="font-bold">Time: <b>{{starttime}} - {{finishtime}}</b></p>
+        <p class="font-bold">GP Name: <b>{{modal.owner}}</b></p>
+    </div>
+    <div class="modal-body">
+
+      <div class="jumbotron">
+        <div class="row">
+          <div class="col-lg-6">
+            <h3>Patient</h3>
+            <table>
+       			<tr>
+         			<th>Sex:</th>
+         			<td>{{gender}}</td>
+       			</tr>
+       			<tr>
+         			<th>Postcode:</th>
+         			<td>{{post}}</td>
+       			</tr>
+       			<tr>
+         			<th>Date of Birth:</th>
+         			<td>{{dob}}</td>
+       			</tr>
+       			
+       			<tr>
+         			<th>Height:</th>
+         			<td>{{height}}</td>
+       			</tr>
+            <tr>
+         			<th>Weight:</th>
+         			<td>{{weight}}</td>
+       			</tr>
+            <tr>
+         			<th>Smoking status: </th>
+         			<td>{{smoking}}</td>
+       			</tr>
+            <tr>
+         			<th>Drink alcohol: </th>
+         			<td>{{drinking}}</td>
+       			</tr>
+            <tr>
+         			<th>How many 'standard' drinks?: </th>
+         			<td>{{drinks}}</td>
+       			</tr>
+            <tr>
+         			<th>Equal or more than 6 standard drinks:</th>
+         			<td>{{moredrink}}</td>
+       			</tr>
+            <!--<tr>
+         			<th>MBS/DVA:</th>
+         			<td><div ng-repeat="med in medicare" style="display: inline;" class="border-right p-xxs">{{med.text}}</div></td>
+       			</tr>-->
+            <tr>
+         			<th>Billing information:</th>
+         			<td>
+                 <div>
+                   {{bill}}
+                 </div>
+                 <div ng-repeat="med in medicare" ng-if="bill=='MBS/DVA'" style="display: inline;" class="border-right p-xxs">
+                    ({{med.text}})
+                 </div>
+              </td>
+       			</tr>
+      		</table>
+          </div>
+          <div class="col-lg-6">
+            <h4>Conditions</h4>
+            <table>
+         			<tr>
+           			<th>New Patient:</th>
+           			<td>{{condition.newpatient}}</td>
+         			</tr>
+         			<tr>
+           			<th>Health Care/Benefits Card:</th>
+           			<td>{{condition.healthcare}}</td>
+         			</tr>
+         			<tr>
+           			<th>Veterans Affairs Card:</th>
+           			<td>{{condition.veterans}}</td>
+         			</tr>
+         			<tr>
+           			<th>NESB:</th>
+           			<td>{{condition.nesb}}</td>
+         			</tr>
+         			<tr>
+           			<th>Aboriginal:</th>
+           			<td>{{condition.aboriginal}}</td>
+         			</tr>
+              <tr>
+           			<th>Torres Strait Islander:</th>
+           			<td>{{condition.torres}}</td>
+         			</tr>
+              <tr>
+                <th>-</th>
+                <td>-</td>
+              </tr>
+              <tr>
+                <th>Times patient has seen GP:</th>
+                <td>{{timesgp}}</td>
+              </tr>
+              <tr>
+                <th>Patient seen by GP?:</th>
+                <td>{{consultation}}</td>
+              </tr>
+            </table>
+            <br>
+            <h3>Reasons</h3>
+            <table>
+       			<tr ng-repeat="reas in reason">
+         			<th>{{reas.rnum}}</th>
+         			<td>{{reas.rname}} ({{reas.icpc2plus}})</td>
+       			</tr>
+      		</table>
+          </div>
+        </div>
+      </div>
+
+      <div class="row marketing">
+        <div class="list-group" ng-repeat="diag in diagnosisList" ng-show="diag.name">
+          <a href="" class="list-group-item list-group-item-action" >
+            <h4 class="list-group-item-heading">Diagnosis / Problems #{{diag.dnum}}: {{diag.name}} ({{diag.icpc2plus}})</h4>
+
+            <b>Status: </b>
+            <div class="inline border-right p-xxs">
+              {{diag.status}}
+            </div>
+            <br>
+            <div class="tabs-container">
+
+              <uib-tabset class="tabs-left">
+                  <uib-tab heading="Drugs">
+                      <div class="panel-body">
+
+                        <table class="table table-hover">
+                         <thead>
+                           <tr>
+                             <th>#</th>
+                             <th>Code</th>
+                             <th>Drug</th>
+                             <th>Dose</th>
+                             <th>Freq.</th>
+                             <th>Rpts</th>
+                             <th>Status</th>
+                             <th>Others</th>
+                             
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr ng-repeat="dru in diag.drug" ng-if="dru.enabled">
+                             <td>{{dru.drnum}}</td>
+                             <td>{{dru.drcode}}</td>
+                             <td>{{dru.drname}}</td>
+                             <td>{{dru.drdose}} {{dru.dosmeasure}}</td>
+                             <td>{{dru.drfreq}}</td>
+                             <td>{{dru.drnorep}}</td>
+                             <td>{{dru.drstatus.name}}</td>
+                             <td>{{dru.others.name}}</td>
+                             <!--<td ng-if="dru.drotc"><i class="fa fa-check" aria-hidden="true"></i></td>
+                             <td ng-if="!dru.drotc"><b>--</b></td>
+                             <td ng-if="dru.drgpsupply"><i class="fa fa-check" aria-hidden="true"></i></td>
+                             <td ng-if="!dru.drgpsupply"><b>--</b></td>-->
+
+                           </tr>
+                         </tbody>
+                       </table>
+                      </div>
+                  </uib-tab>
+
+                  <uib-tab heading="Procedure, other treatments, counselling">
+                      <div class="panel-body">
+                        <table class="table table-hover">
+                         <thead>
+                           <tr>
+                             <th>#</th>
+                             <th>Code</th>
+                             <th>Procedure</th>
+                             <th>Prac. Nurse?</th>
+
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr ng-repeat="proc in diag.procedure" ng-if="proc.enabled">
+                             <td>{{proc.pnum}}</td>
+                             <td>{{proc.icpc2plus}}</td>
+                             <td>{{proc.pname}}</td>
+
+                             <td ng-if="proc.pnurse"><i class="fa fa-check" aria-hidden="true"></i></td>
+                             <td ng-if="!proc.pnurse"><b>--</b></td>
+
+                           </tr>
+                         </tbody>
+                       </table>
+
+                      </div>
+                  </uib-tab>
+
+                  <uib-tab heading="New Referrals / Admissions">
+                      <div class="panel-body">
+                        <table class="table table-hover">
+                         <thead>
+                           <tr>
+                             <th>#</th>
+                             <th>Code</th>
+                             <th>Referrals, Admissions</th>
+
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr ng-repeat="ref in diag.referral" ng-if="ref.enabled">
+                             <td>{{ref.rnum}} </td>
+                             <td>{{ref.icpc2plus}} </td>
+                             <td>{{ref.rname}} </td>
+
+                           </tr>
+                         </tbody>
+                       </table>
+
+                      </div>
+                  </uib-tab>
+
+                  <uib-tab heading="Imaging / Other tests">
+                      <div class="panel-body">
+                        <table class="table table-hover">
+                         <thead>
+                           <tr>
+                             <th>#</th>
+                             <th>Code</th>
+                             <th>Imaging</th>
+
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr ng-repeat="ima in diag.imaging" ng-if="ima.enabled">
+                             <td>{{ima.inum}}</td>
+                             <td>{{ima.icpc2plus}}</td>
+                             <td>{{ima.iname}}</td>
+
+                         </tbody>
+                       </table>
+
+                      </div>
+                  </uib-tab>
+
+                  <uib-tab heading="Pathology">
+                      <div class="panel-body">
+                        <table class="table table-hover">
+                         <thead>
+                           <tr>
+                             <th>#</th>
+                             <th>Code</th>
+                             <th>Pathology</th>
+
+                           </tr>
+                         </thead>
+                         <tbody>
+                           <tr ng-repeat="path in diag.pathology" ng-if="path.enabled">
+                             <td>{{path.pnum}}</td>
+                             <td>{{path.icpc2plus}}</td>
+                             <td>{{path.pname}}</td>
+
+                           </tr>
+                         </tbody>
+                       </table>
+
+                      </div>
+                  </uib-tab>
+
+              </uib-tabset>
+
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancel()">Close</button>
+
+        <button type="button" class="btn btn-success" ng-click="submitForm()"><b>Submit</b></button>
+    </div>
+</div>

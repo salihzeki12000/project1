@@ -1,0 +1,28 @@
+<!--<form role="form" id="createOceanForm" novalidate name="createOceanForm">-->
+    <i ng-click="$event.preventDefault();deleteProcedure(group.procedure,pro)" class="fa fa-times-circle fa-lg pull-right" aria-hidden="true"></i>
+    
+    <div class="row" style="height:70px;">
+        <div class="col-md-5">
+            <div class="form-group" ng-class="{'has-error': createOceanForm.pname.$touched && createOceanForm.pname.$invalid, 'has-success': createOceanForm.pname.$touched && createOceanForm.pname.$valid }">
+                <label for="pname" class="control-label">Name</label> <i class="fa fa-info-circle" tooltip-placement="right" uib-tooltip="Please, enter a keyword and select a term from ICPC2-PLUS. Otherwise, this will not be saved with its code" aria-hidden="true"></i>
+                <div class="input-group">
+                    <input ng-model="pro.pname" name="pname" type="text" ng-keypress="goOpenModal($event,group.dnum,pro,'procedure')" class="form-control" autocomplete="off">
+                    <span class="input-group-btn"> <button type="button" class="btn bt-sm btn-primary"
+      ng-click="$event.stopPropagation();editOFCtr.openMyModal(group.dnum,pro.pname,pro.pnum,'procedure')">
+      search</button> </span>
+                </div>
+                <div ng-messages="createOceanForm.pname.$dirty && createOceanForm.pname.$error">
+                    <div ng-messages-include="error-messages"> </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="checkbox">
+                <input id={{group.dnum}}{{pro.pnum}} type="checkbox" ng-model="pro.pnurse"><label for={{group.dnum}}{{pro.pnum}}> Practice nurse performed the procedure?</label>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+<!--</form>-->

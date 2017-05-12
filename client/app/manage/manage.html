@@ -1,0 +1,194 @@
+
+<toaster-container></toaster-container>
+<div class="row">
+
+<div class="col-lg-12">
+<div class="ibox float-e-margins">
+<div class="ibox-title">
+    <h5>Lookup table </h5>
+    <div ibox-tools></div>
+</div>
+<div class="ibox-content">
+<div class="container">
+  <p>Link a keyword with any word, abbreviation or acronym you like for being visible in ICPC2-PLUS</p>
+  <div class="row">
+
+    <div class="col-md-12">
+        <form>
+            <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">       
+                <!--<label for="drugname" class="control-label">Name</label>-->
+                <div class="input-group" id="scrollable-dropdown-menu">
+                    <div class="input-group-addon">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </div><!-- /.input-group-addon -->
+                        <input type="text" ng-model="keySelected" placeholder="Select a keyword" autocomplete="off"
+                        uib-typeahead="key as key.keyword for key in keywords | filter:{keyword:$viewValue} | limitTo:300" 
+                        class="form-control" typeahead-show-hint="true" typeahead-min-length="2" typeahead-focus-first="true" typeahead-no-results="noresult">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="text" ng-model="keylink" class="form-control" placeholder="Related keyword" autocomplete="off">
+                </div>
+            </div>
+            <button type="button" class="btn bt-sm btn-primary" ng-click="linkKeyword()">Link</button>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-md-4">
+                <ul class="list-group user-list">
+                    <li class="list-group-item" ng-repeat="link in linkkey">
+                        <div class="user-info">
+                            <strong>{{link.linkeyword}}</strong><br>
+                            <a ng-click="deleteLink(link)" class="trash"><span class="fa fa-trash fa-2x pull-right"></span></a>
+                            Keyword: <span class="text-muted">{{link.keyword}}</span><br>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+
+<div class="col-lg-12">
+<div class="ibox float-e-margins">
+<div class="ibox-title">
+    <h5>List of Submitted and Draft Forms </h5>
+    <div ibox-tools></div>
+</div>
+<div class="ibox-content">
+
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Search </label><br>
+        <input type="text" ng-model="test"  class="form-control">
+      </div>
+    </div>
+    <!--<div class="col-sm-7">
+    </div>-->
+    
+    <div class="col-sm-2">
+        <div class="form-group">
+            <input id="filter" type="hidden"/>
+            <label>Filter by status </label>
+            <i class="fa fa-info-circle" tooltip-placement="right" uib-tooltip="Choose 'Submitted' or 'Draft'. No filter, choose 'Blank'" aria-hidden="true"></i>
+        <!--<div class="row">
+            <div class="col-sm-12">
+        <small class="text-muted"> (Choose 'Submitted' or 'Draft'. No filter, choose 'Blank')</small>
+        
+            </div>
+        </div>-->
+        <!--<div class="col-sm-2">-->
+            <select class="form-control filter-status" ng-model='filter.status' ng-change="filterByStatus()">
+            <option></option>
+            <option>Submitted</option>
+            <option>Draft</option>
+            </select>
+        <!--</div>-->
+        </div>
+
+    </div>
+    <!--<div class="col-sm-4 m-t-sm">
+      <div class="form-group">
+        <label>Filter by RFE </label><br>
+        <input type="text" ng-model="test.reason[0].rname"  class="form-control">
+      </div>
+    </div>-->
+  </div>
+  <br>
+  <table id="myTable" class="footable table table-hover" data-before-filtering="filteringEventHandler" data-page-size="10">
+      <thead>
+      <tr>
+          <th>Owner</th>
+          <th>Role</th>
+          <th>User ID</th>
+          <th>Form ID</th>
+          <th>Enc.No</th>
+          <th>Date</th>
+          <th>Start time</th>
+          <th><sup>1st</sup> RFE</th>
+          <th>Sex</th>
+          <th>DOB</th>
+          <th>Status</th>
+          <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="form in forms | orderBy:'-encnum' | filter:test" ng-if="form.enabled">
+          <td>{{form.owner.name}}</td>
+          <td>{{form.owner.role}}</td>
+          <td>{{form.owner.userid}}</td>
+          <td>{{form._id}}</td>
+          <td>{{form.encnum}}</td>
+          <td>{{form.encdate}}</td>
+          <td>{{form.starttime}}</td>
+          <td>{{form.reason[0].rname}}</td>
+          <td>{{form.patient.gender}}</td>
+          <td>{{form.patient.dob}}</td>
+          <td ng-if="form.status == 'Draft'">
+            <span class="label label-warning">{{form.status}}</td>
+          <td ng-if="form.status == 'Submitted'">
+            <span class="label label-success">{{form.status}}</td>
+          <td ng-if="form.status == 'Draft'">
+            <a class="btn btn-outline btn-sm btn-primary" ng-click="goToViewOForm(form)">View</a>
+            <a class="btn btn-outline btn-sm btn-warning" ng-click="goToEditOForm(form)">Edit</a>
+            <a class="btn btn-outline btn-sm btn-danger" ng-click="removeForm(form)">Delete</a></td>
+          <td ng-if="form.status == 'Submitted'">
+            <a class="btn btn-outline btn-sm btn-primary" ng-click="goToViewOForm(form)">View</a></td>
+      </tr>
+      </tbody>
+      <tfoot class="hide-if-no-paging">
+      <tr>
+          <td colspan="5" align="center">
+              <ul class="pagination pull-left"></ul>
+          </td>
+      </tr>
+      </tfoot>
+  </table>
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+<div class="row">
+
+<div class="col-lg-12">
+<div class="ibox float-e-margins">
+<div class="ibox-title">
+    <h5>User Management </h5>
+    <div ibox-tools></div>
+</div>
+<div class="ibox-content">
+<div class="container">
+  <p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>
+  <ul class="list-group user-list">
+    <li class="list-group-item" ng-repeat="user in users">
+	    <div class="user-info">
+	        <strong>{{user.name}}</strong><br>
+            Email: <span class="text-muted">{{user.email}}</span><br>
+            Role: <span class="text-muted">{{user.role}}</span>
+            <a ng-click="deleteUser(user)" class="trash"><span class="fa fa-trash fa-2x pull-right"></span></a>
+	    </div>
+        
+    </li>
+  </ul>
+</div>
+</div>
+</div>
+</div>
+</div>

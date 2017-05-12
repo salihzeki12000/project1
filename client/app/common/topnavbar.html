@@ -1,0 +1,32 @@
+<div class="row border-bottom">
+    <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <span minimaliza-sidebar></span>
+            
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li ng-hide="state.current.name=='index.createOForm'">
+                <div class="buttonCreateForm" align="center">
+                    <button class="btn btn-outline btn-primary dim m-t" type="button" ui-sref="index.createOForm">
+                    <span class="fa-stack">
+                    <i class="fa fa-paste fa-stack-2x"></i>
+                    <i class="fa fa-plus-circle fa-stack-1x"></i>
+                    </span> <b class="m-l">Create a New Form</b></button>
+                <!--<div class="row">
+                    <div class="bg-muted"><b class="border-left-right border-top-bottom p-w-sm">New Form</b></div>
+                </div>-->
+                </div>
+            </li>
+            <li>
+                <a ui-sref="index.instructions">
+                    Instructions
+                </a>
+            </li>
+            <li>
+                <a ui-sref="logout">
+                    <i class="fa fa-sign-out"></i> Log out
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,73 @@
+<div class="modal-header">
+  <h3 class="modal-title" id="modal-title">ICPC-2 PLUS</h3>
+</div>
+<div class="modal-body" id="modal-body">
+
+  <div class="row">
+    <div class="col-lg-12">
+      <form class="m-t" role="form">
+        <div class="form-group">
+          <label>Search by keyword</label>
+          <div class="input-group">
+            <!--<input type="text" ng-model="customSelected" placeholder="Keyword (e.g. 'TENDONITIS')"
+                 uib-typeahead="codekey as codekey.keyword for codekey in codingkey | filter:{keyword:$viewValue} | limitTo:10"
+                 class="form-control" typeahead-show-hint="true" typeahead-min-length="1" typeahead-focus-first="true" typeahead-no-results="noresult">-->
+            <input type="text" ng-model="customSelected" placeholder="Keyword (e.g. 'TENDONITIS')" class="form-control" autofocus>
+            <span class="input-group-btn">
+                   <button class="btn btn-primary" ng-click="searchCode()">
+                    search</button></span>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+  
+    <div class="row">
+      <div class="col-md-12">      
+        <div class="form-group row" ng-show="codeLength > 0">
+          <label class="col-md-3 col-form-label">Filter results:</label>
+          <div class="col-md-6">
+            <input type="text" ng-model="search.term30" class="form-control">
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-6">
+        <p ng-show="codeLength > 0">Select a term from the list below</p>
+      </div>
+      <div class="col-md-6">
+        <p class="pull-right"># Results: <b>{{codeLength}}</b></p>
+      </div>
+    </div>
+    <!--<div ng-show="codeLength > 0">-->
+    <div class="row">
+      <div class="col-md-12" ng-show="codeLength > 0">
+        <table class="table table-bordered" style="height: 100px;overflow-y: scroll;">
+          <thead>
+            <tr>
+              <th>Term label</th>
+              <th>Code</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="trm in terms | filter:search | orderBy:'term30' track by $index">
+              <td><a href="#" ng-click="$event.preventDefault(); editOFCtr.selectedCode2.trm = trm; editOFCtr.ok()">
+                        {{trm.term30}}</a></td>
+              <td>{{trm.codeformat}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <!--</div>-->
+  <div ng-show="!showListTerms">
+    <p>Sorry! ICPC2-PLUS is still loading. Close this window and try again!</p>
+  </div>
+</div>
+<div class="modal-footer">
+  <!--<button class="btn btn-primary" type="button" ng-click="createOFCtr.ok()">OK</button>-->
+  <button class="btn btn-warning" type="button" ng-click="editOFCtr.cancel()">Cancel</button>
+</div>

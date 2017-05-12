@@ -1,0 +1,34 @@
+<!--<form role="form" id="createOceanForm" novalidate name="createOceanForm">-->
+
+  <i ng-click="$event.preventDefault();deleteImaging(group.diagnosis.imaging,ima)" class="fa fa-times-circle fa-lg pull-right"
+    aria-hidden="true"></i>
+
+  <div class="row" style="height:70px;">
+    <div class="col-md-5">
+      <div class="form-group" ng-class="{'has-error': createOceanForm.iname.$touched && createOceanForm.iname.$invalid, 'has-success': createOceanForm.iname.$touched && createOceanForm.iname.$valid }">
+        <label for="iname" class="control-label">Name</label> <i class="fa fa-info-circle" tooltip-placement="right" uib-tooltip="Please, enter a keyword and select a term from ICPC2-PLUS. Otherwise, this will not be saved with its code" aria-hidden="true"></i>
+        <div class="input-group">
+          <input ng-model="ima.iname" name="iname" type="text" autocomplete="off" ng-keypress="goOpenModal($event,group.diagnosis.dnum,ima,'imaging')"
+            class="form-control">
+          <span class="input-group-btn"> <button type="button" class="btn bt-sm btn-primary"
+      ng-click="$event.stopPropagation();createOFCtr.openMyModal(group.diagnosis.dnum,ima.iname,ima.inum,'imaging')">
+      search</button> </span>
+        </div>
+        <div ng-messages="createOceanForm.iname.$dirty && createOceanForm.iname.$error">
+          <div ng-messages-include="error-messages"> </div>
+        </div>
+      </div>
+    </div>
+    <!--<div class="col-md-4">
+      <div class="form-group" ng-class="{'has-error': createOceanForm.bodysite.$touched && createOceanForm.bodysite.$invalid, 'has-success': createOceanForm.bodysite.$touched && createOceanForm.bodysite.$valid }">
+        <label for="bodysite" class="control-label">Body site</label><br>
+        <input type="text" name="bodysite" class="form-control" ng-model="ima.bodysite" ngMaxlength="50" placeholder="">
+        <div ng-messages="createOceanForm.bodysite.$dirty && createOceanForm.bodysite.$error">
+          <div ng-messages-include="error-messages"> </div>
+        </div>
+      </div>
+    </div>-->
+  </div>
+
+  <hr>
+<!--</form>-->

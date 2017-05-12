@@ -1,0 +1,79 @@
+<div class="middle-box text-center loginscreen   animated fadeInDown">
+    <div>
+        <div>
+
+            <h3 class="logo-name">OCEAN</h3>
+
+        </div>
+        <h3>Register to OCEAN</h3>
+        <p>Create account to see it in action.</p>
+        <form class="form" name="form" ng-submit="signUp(form)" novalidate>
+            
+            <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
+                                            'has-error': form.name.$invalid && submitted }">
+            <!--<label>Name</label>-->
+
+            <input type="text" name="name" placeholder="Name" class="form-control" ng-model="user.name"
+                    required/>
+            <p class="help-block" ng-show="form.name.$error.required && submitted">
+                <b>A name is required</b>
+            </p>
+            </div>
+            
+            <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
+                                            'has-error': form.email.$invalid && submitted }">
+            <!--<label>Email</label>-->
+
+            <input type="email" name="email" placeholder="Email" class="form-control" ng-model="user.email"
+                    required
+                    mongoose-error/>
+            <p class="help-block" ng-show="form.email.$error.email && submitted">
+                <b>Doesn't look like a valid email.</b>
+            </p>
+            <p class="help-block" ng-show="form.email.$error.required && submitted">
+                <b>What's your email address?</b>
+            </p>
+            <p class="help-block" ng-show="form.email.$error.mongoose">
+                <b>{{ errors.email }}</b>
+            </p>
+            </div>
+           
+           <div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,
+                                            'has-error': form.password.$invalid && submitted }">
+            <!--<label>Password</label>-->
+
+            <input type="password" name="password" placeholder="Password" class="form-control" ng-model="user.password"
+                    ng-minlength="3"
+                    required
+                    mongoose-error/>
+            <p class="help-block"
+                ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted">
+                <b>Password must be at least 3 characters.</b>
+            </p>
+            <p class="help-block" ng-show="form.password.$error.mongoose">
+                <b>{{ errors.password }}</b>
+            </p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-success': form.confirmPassword.$valid && submitted,
+                                            'has-error': form.confirmPassword.$invalid && submitted }">
+            <!--<label>Confirm Password</label>-->
+            <input type="password" name="confirmPassword"  placeholder="Confirm Password" class="form-control" ng-model="user.confirmPassword"
+                    match="user.password"
+                    ng-minlength="3" required/>
+            <p class="help-block"
+                ng-show="form.confirmPassword.$error.match && submitted">
+                <b>Passwords must match.</b>
+            </p>
+            </div>
+            <!--<div class="form-group">
+                <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> Agree the terms and policy </label></div>
+            </div>-->
+            <button class="btn btn-primary block full-width m-b" type="submit">Register</button>
+
+            <p class="text-muted text-center"><small>Already have an account?</small></p>
+            <a class="btn btn-sm btn-white btn-block" ui-sref="login">Login</a>
+        </form>
+        <p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small> </p>
+    </div>
+</div>

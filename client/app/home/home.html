@@ -1,0 +1,104 @@
+<toaster-container></toaster-container>
+
+<div class="row  border-bottom white-bg dashboard-header">
+  <div class="row">
+    <div class="col-lg-8">
+      <h2>Welcome {{main.userName}}</h2>
+      <h4>You have <u>{{countSubmitted}}</u> forms in 'Submitted' status and <u>{{countDraft}}</u> in 'Draft' status</h4>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+
+<div class="col-lg-12">
+<div class="ibox float-e-margins">
+<div class="ibox-title">
+    <h5>List of Submitted and Draft Forms </h5>
+    <div ibox-tools></div>
+</div>
+<div class="ibox-content">
+
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Search </label><br>
+        <input type="text" ng-model="test"  class="form-control">
+      </div>
+    </div>
+    <!--<div class="col-sm-7">
+    </div>-->
+    
+    <div class="col-sm-2">
+        <div class="form-group">
+            <input id="filter" type="hidden"/>
+            <label>Filter by status </label>
+            <i class="fa fa-info-circle" tooltip-placement="right" uib-tooltip="Choose 'Submitted' or 'Draft'. No filter, choose 'Blank'" aria-hidden="true"></i>
+        <!--<div class="row">
+            <div class="col-sm-12">
+        <small class="text-muted"> (Choose 'Submitted' or 'Draft'. No filter, choose 'Blank')</small>
+        
+            </div>
+        </div>-->
+        <!--<div class="col-sm-2">-->
+            <select class="form-control filter-status" ng-model='filter.status' ng-change="filterByStatus()">
+            <option></option>
+            <option>Submitted</option>
+            <option>Draft</option>
+            </select>
+        <!--</div>-->
+        </div>
+
+    </div>
+  </div>
+  <br>
+  <table id="myTable" class="footable table table-hover" data-before-filtering="filteringEventHandler" data-page-size="10">
+      <thead>
+      <tr>
+          <th>Enc.No</th>
+          <th>Date</th>
+          <th>Start time</th>
+          <th><sup>1st</sup> RFE</th>
+          <th>Sex</th>
+          <th>DOB</th>
+          <th>Status</th>
+          <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="form in forms | orderBy:'-encnum'| filter:test" ng-if="form.enabled">
+          <td>{{form.encnum}}</td>
+          <td>{{form.encdate}}</td>
+          <td>{{form.starttime}}</td>
+          <td>{{form.reason[0].rname}}</td>
+          <td>{{form.patient.gender}}</td>
+          <td>{{form.patient.dob}}</td>
+          <td ng-if="form.status == 'Draft'">
+            <span class="label label-warning">{{form.status}}</td>
+          <td ng-if="form.status == 'Submitted'">
+            <span class="label label-success">{{form.status}}</td>
+          <td >
+            <a class="btn btn-outline btn-sm btn-primary" ng-click="goToViewOForm(form)">View</a>
+            <a class="btn btn-outline btn-sm btn-warning" ng-click="goToEditOForm(form)">Edit</a>
+            <a class="btn btn-outline btn-sm btn-danger" ng-click="removeForm(form)">Delete</a></td>
+          <!--<td ng-if="form.status == 'Draft'">
+            <a class="btn btn-outline btn-sm btn-primary" ng-click="goToViewOForm(form)">View</a>
+            <a class="btn btn-outline btn-sm btn-warning" ng-click="goToEditOForm(form)">Edit</a>
+            <a class="btn btn-outline btn-sm btn-danger" ng-click="removeForm(form)">Delete</a></td>
+          <td ng-if="form.status == 'Submitted'">
+            <a class="btn btn-outline btn-sm btn-primary" ng-click="goToViewOForm(form)">View</a></td>-->
+      </tr>
+      </tbody>
+      <tfoot class="hide-if-no-paging">
+      <tr>
+          <td colspan="5" align="center">
+              <ul class="pagination pull-left"></ul>
+          </td>
+      </tr>
+      </tfoot>
+  </table>
+</div>
+</div>
+</div>
+
+</div>

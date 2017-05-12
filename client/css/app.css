@@ -1,0 +1,67 @@
+
+.eso {
+margin-top: 34px;
+}
+
+#toTop{
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	cursor: pointer;
+	display: none;
+    background:  transparent;
+    color: rgba(26, 179, 148, 0.38);
+    border:  3.5px solid rgba(26, 179, 148, 0.38);
+    border-radius: 25px;
+    font-size: 25px;
+}
+
+#toTop:hover  {
+     color: rgba(26, 179, 148, 1);
+    border:  3.5px solid rgba(26, 179, 148, 1);
+ }
+
+ .fa-times-circle{
+	/*position: fixed;*/
+	cursor: pointer;
+	/*display: none;*/
+    /*background:  transparent;*/
+    color: rgba(103, 106, 108, 0.38);
+    
+    font-size: 50px;
+}
+
+.fa-times-circle:hover  {
+    color: rgba(103, 106, 108, 1);
+   
+ }
+
+ #scrollable-dropdown-menu .dropdown-menu {
+	max-height: 200px;
+	overflow-y: auto;
+}
+
+.asterik {
+    color:#ed5565;
+    font-size: 18px;
+}
+
+.buttonCreateForm .fa-plus-circle{
+  left: 16px;
+  top: -17px;
+  font-size:15px;
+}
+.buttonCreateForm .fa-stack {
+  position: relative;
+  left: 0px;
+  top: 10px;
+}
+.buttonCreateForm .fa-paste{
+  font-size:30px;
+  top: -10px;
+  left: -3px;
+}
+
+select{
+    background:#fff;
+}

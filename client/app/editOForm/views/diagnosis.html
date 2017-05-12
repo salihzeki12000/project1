@@ -1,0 +1,103 @@
+<!--<form role="form" id="createOceanForm" novalidate name="createOceanForm">-->
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group" ng-class="{'has-error': createOceanForm.diagnosis.$touched && createOceanForm.diagnosis.$invalid, 'has-success': createOceanForm.diagnosis.$touched && createOceanForm.diagnosis.$valid }" ng-if="group.dnum == 1">
+        <label for="diagnosis" class="control-label"><b class="asterik">*</b> Diagnosis/Problem </label> <i class="fa fa-info-circle" tooltip-placement="right" uib-tooltip="Please, enter a keyword and select a term from ICPC2-PLUS. Otherwise, the Diagnosis/Problem will not be saved with its code" aria-hidden="true"></i>
+        <div class="input-group">
+          <input ng-model="group.name" name="diagnosis" type="text" required="" autocomplete="off" class="form-control" ng-keypress="goOpenModal2($event,group,'diagnosis')">
+          <span class="input-group-btn"> <button type="button" class="btn bt-sm btn-primary"
+        ng-click="$event.stopPropagation();editOFCtr.openMyModal2(group.name,group.dnum,'diagnosis')">
+        search</button> </span>
+        </div>
+        <div ng-messages="createOceanForm.diagnosis.$dirty && createOceanForm.diagnosis.$error">
+          <div ng-messages-include="error-messages"> </div>
+        </div>
+
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': createOceanForm.diagnosis.$touched && createOceanForm.diagnosis.$invalid, 'has-success': createOceanForm.diagnosis.$touched && createOceanForm.diagnosis.$valid }" ng-if="group.dnum > 1">
+        <label for="diagnosis" class="control-label">Diagnosis/Problem </label> <i class="fa fa-info-circle" tooltip-placement="right" uib-tooltip="Please, enter a keyword and select a term from ICPC2-PLUS. Otherwise, the Diagnosis/Problem will not be saved with its code" aria-hidden="true"></i>
+        <div class="input-group">
+          <input ng-model="group.name" name="diagnosis" type="text" ng-keypress="goOpenModal2($event,group,'diagnosis')"
+            autocomplete="off" class="form-control">
+          <span class="input-group-btn"> <button type="button" class="btn bt-sm btn-primary"
+        ng-click="$event.stopPropagation();editOFCtr.openMyModal2(group.name,group.dnum,'diagnosis')">
+        search</button> </span>
+        </div>
+        <div ng-messages="createOceanForm.diagnosis.$dirty && createOceanForm.diagnosis.$error">
+          <div ng-messages-include="error-messages"> </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="status" class="control-label">Status</label><br>
+        <div class="radio radio-inline">
+          <input type="radio" id={{new}}{{group.dnum}} ng-model="group.status" value="New" name="statusdiag{{group.dnum}}"><label for={{new}}{{group.dnum}}>  New</label>
+        </div>
+        <div class="radio radio-inline" style="padding-left:10px;">
+          <input type="radio" id={{old}}{{group.dnum}} ng-model="group.status" value="Old" name="statusdiag{{group.dnum}}"><label for={{old}}{{group.dnum}}>  Old</label>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--</form>-->
+
+
+<div class="row" >
+  <div class="col-lg-12">
+  <label class="control-label">Management of Diagnosis/Problem #{{group.dnum}}</label>
+  <div class="tabs-container">
+
+    <uib-tabset class="tabs-left">
+      <uib-tab heading="Drugs">
+        <div class="panel-body">
+
+          <div drug-section-edit ng-repeat="dru in group.drug"></div>
+          <button class="btn btn-sm btn-default" ng-click="addDrug(group.drug)">Add more</button>
+          <!--<button class="btn btn-outline btn-success" ng-click="addDrug(group.drug);editOFCtr.openMyModalDrug(group.dnum,group.drug)"><i class="fa fa-heartbeat" aria-hidden="true"></i> Add a new Drug</button>-->
+
+        </div>
+      </uib-tab>
+
+      <uib-tab heading="Procedure, other treatments, counselling">
+        <div class="panel-body">
+
+          <div procedure-section-edit ng-repeat="pro in group.procedure"></div>
+
+          <button class="btn btn-sm btn-default eso" ng-click="addProcedure(group.procedure)">Add more</button>
+        </div>
+      </uib-tab>
+
+      <uib-tab heading="New Referrals / Admissions">
+        <div class="panel-body">
+
+          <div referral-section-edit ng-repeat="ref in group.referral"></div>
+          
+          <button class="btn btn-sm btn-default" ng-click="addReferral(group.referral)">Add more</button>
+        </div>
+      </uib-tab>
+
+      <uib-tab heading="Imaging / Other tests">
+        <div class="panel-body">
+
+          <div imaging-section-edit ng-repeat="ima in group.imaging"></div>
+
+          <button class="btn btn-sm btn-default" ng-click="addImaging(group.imaging)">Add more</button>
+        </div>
+      </uib-tab>
+
+      <uib-tab heading="Pathology">
+        <div class="panel-body">
+
+          <div pathology-section-edit ng-repeat="pat in group.pathology"></div>
+
+          <button class="btn btn-sm btn-default" ng-click="addPathology(group.pathology)">Add more</button>
+        </div>
+      </uib-tab>
+
+    </uib-tabset>
+</div>
+  </div>
+</div>
